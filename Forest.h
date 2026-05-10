@@ -19,6 +19,8 @@ class Forest
         static void clear_instance();
 
         void listen();
+        int grow();
+        int less();
         void draw();
         void live();
         bool check(int x, int y);
