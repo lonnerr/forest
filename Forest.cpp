@@ -76,6 +76,7 @@ Forest::~Forest()
         delete plants[i];
     delete[] animals;
     delete[] plants;
+    plants = nullptr;
     delete window;
 }
 
@@ -140,6 +141,14 @@ int Forest::init(int na, int np, int _X, int _Y)
         }
     }
     n_plants = np;
+    if (plants != nullptr) {
+        for (int i = 0; i < n_plants; i++) {
+            delete plants[i];
+        }
+        delete[] plants;
+        plants = nullptr;
+
+    }
     plants = new Plant*[n_plants];
     if (!plants) return 4;
     for (int i=0; i<n_plants; i++)
@@ -215,7 +224,7 @@ int Forest::init(int na, int np, int _X, int _Y)
 
     for (int i=0; i<X; i++)
         delete[] taken[i];
-    delete taken;
+    delete[] taken;
 
     sf::ContextSettings contextSettings;
     contextSettings.depthBits = 24;
@@ -227,6 +236,14 @@ int Forest::init(int na, int np, int _X, int _Y)
 
 int Forest::grow()
 {
+    if (plants != nullptr) {
+        for (int i = 0; i < n_plants; i++) {
+            delete plants[i];
+        }
+        delete[] plants;
+        plants = nullptr;
+
+    }
     n_plants++;
     plants = new Plant*[n_plants];
     if (!plants) return 4;
@@ -292,7 +309,7 @@ int ia = 0, ip = 0, _x, _y;
     }
     for (int i=0; i<X; i++)
         delete[] taken[i];
-    delete taken;
+    delete[] taken;
 
    /* sf::ContextSettings contextSettings;
     contextSettings.depthBits = 24;
@@ -304,7 +321,16 @@ int ia = 0, ip = 0, _x, _y;
 
 int Forest::less()
 {
+    if (plants != nullptr) {
+        for (int i = 0; i < n_plants; i++) {
+            delete plants[i];
+        }
+        delete[] plants;
+        plants = nullptr;
+
+    }
     n_plants--;
+    n_plants = n_plants > 0 ? n_plants : 0;
     plants = new Plant*[n_plants];
     if (!plants) return 4;
     for (int i=0; i<n_plants; i++)
@@ -369,7 +395,7 @@ int ia = 0, ip = 0, _x, _y;
     }
     for (int i=0; i<X; i++)
         delete[] taken[i];
-    delete taken;
+    delete[] taken;
 
    /* sf::ContextSettings contextSettings;
     contextSettings.depthBits = 24;
